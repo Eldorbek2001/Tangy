@@ -1,0 +1,23 @@
+﻿@page "/learnBlazor/bindProp"
+
+<h3>BindProp</h3>
+Name: @mello.Name<br>
+Id: @mello.Id<br>
+Active: @mello.isActive<br>
+Price: @mello.price <br>
+Active: <input type="checkbox" /> <br>
+Price: <input type="text" @bind-value="@mello.price" @bind-value:event="oninput"> <br>
+
+@code {
+    DemoProduct.LearnBlazorModel.Class1 mello = new()
+        {
+            Id = 21231,
+            Name = "Joe Reagan",
+            isActive = true,
+            price = 3.141598
+        };
+
+
+
+}
+
