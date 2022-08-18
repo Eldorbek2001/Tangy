@@ -5,16 +5,44 @@ Name: @mello.Name<br>
 Id: @mello.Id<br>
 Active: @mello.isActive<br>
 Price: @mello.price <br>
-Active: <input type="checkbox" /> <br>
+The product is: @mello.status <br>
+Property Selected: @selectedProp <br>
+@if (!String.IsNullOrWhiteSpace(selectedProp))
+{
+    <p>Propery Value: @mello.ProductProperties.FirstOrDefault(u=>u.Key==@selectedProp).Value</p>
+}
+
+Active: <input type="checkbox" checked @onclick = "mello.toggleStatus"> <br>
 Price: <input type="text" @bind-value="@mello.price" @bind-value:event="oninput"> <br>
 
+
+
+Product Properties: <select @bind = "selectedProp">
+    @foreach(DemoProduct.LearnBlazorModel.Demo_ProductProp prop in @mello.ProductProperties)
+    {
+        <option value="@prop.Key">@prop.Key</option>
+    }
+</select>
+
+
 @code {
+
+    private String selectedProp = "";
+
     DemoProduct.LearnBlazorModel.Class1 mello = new()
-        {
+        {           
             Id = 21231,
             Name = "Joe Reagan",
             isActive = true,
-            price = 3.141598
+            price = 3.141598,
+            status = "Active",
+            ProductProperties = new List<DemoProduct.LearnBlazorModel.Demo_ProductProp>()
+            {
+                new DemoProduct.LearnBlazorModel.Demo_ProductProp {Id = 1, Key = "Color", Value = "Black"},
+                new DemoProduct.LearnBlazorModel.Demo_ProductProp {Id = 2, Key = "Flavor", Value = "Rose Jasmine"},
+                new DemoProduct.LearnBlazorModel.Demo_ProductProp {Id = 3, Key = "Size", Value = "20oz"}
+            }
+      
         };
 
 
