@@ -12,19 +12,19 @@ namespace DemoProduct.LearnBlazorModel
         public string Name { get; set; }
         public double price { get; set; }
         public bool isActive { get; set; } 
-        public string status { get; set; }
 
-        public IEnumerable<Demo_ProductProp> ProductProperties { get; set; }
-        public void toggleStatus()
+
+        public List<Demo_ProductProp> ProductProperties { get; set; }
+        public string getStatus()
         {
-            isActive = !isActive;
+   
             if (isActive)
             {
-                this.status = "Active";
+                return "Active";
             }
             else
             {
-                this.status = "Inactive";
+                return "Inactive";
             }
         }
     }

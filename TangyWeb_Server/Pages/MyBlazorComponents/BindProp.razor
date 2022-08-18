@@ -1,28 +1,59 @@
 ﻿@page "/learnBlazor/bindProp"
+<h2 class="text-success">Individual Product</h2>
+<div class="row">
+    <div class="col-6 border p-3">
 
-<h3>BindProp</h3>
-Name: @mello.Name<br>
-Id: @mello.Id<br>
-Active: @mello.isActive<br>
-Price: @mello.price <br>
-The product is: @mello.status <br>
-Property Selected: @selectedProp <br>
-@if (!String.IsNullOrWhiteSpace(selectedProp))
-{
-    <p>Propery Value: @mello.ProductProperties.FirstOrDefault(u=>u.Key==@selectedProp).Value</p>
-}
-
-Active: <input type="checkbox" checked @onclick = "mello.toggleStatus"> <br>
-Price: <input type="text" @bind-value="@mello.price" @bind-value:event="oninput"> <br>
+        <h3 class="text-primary"> Product Playground</h3>
+        <p style="padding:0">Active: <input type="checkbox" checked = "@(mello.isActive?"checked":"unchecked")" @onclick="mello.toggleStatus"></p>
+        Price: <input type="text" @bind-value="@mello.price" @bind-value:event="oninput"> <br>
+        <br>
 
 
+        Product Properties: <select @bind="selectedProp">
+            @foreach (Demo_ProductProp prop in @mello.ProductProperties)
+            {
+                <option value="@prop.Key">@prop.Key</option>
+            }
+        </select>
+    </div>
+    <div class="col-6 border p-3">
+        <h3 class="text-primary"> Product summary</h3>
 
-Product Properties: <select @bind = "selectedProp">
-    @foreach(DemoProduct.LearnBlazorModel.Demo_ProductProp prop in @mello.ProductProperties)
+        Name: @mello.Name<br>
+        Id: @mello.Id<br>
+        Active: @mello.isActive<br>
+        Price: @mello.price <br>
+        The product is: @(mello.isActive?"Active":"Inactive") <br>
+        Property Selected: @selectedProp <br>
+        @if (!String.IsNullOrWhiteSpace(selectedProp))
+        {
+            <p style="padding: 0">Propery Value: @mello.ProductProperties.FirstOrDefault(u=>u.Key==@selectedProp).Value</p>
+        }
+    </div>
+
+</div>
+<br>
+<h2 class="text-success">Products Table</h2>
+<ul class="list-group">
+    @foreach(Class1 eachProduct in productsList)
     {
-        <option value="@prop.Key">@prop.Key</option>
+      <li class="list-group-item">
+         <input type="text" @bind-value="eachProduct.Name" @bind-value:event="oninput">
+         <input type="text" @bind-value="eachProduct.price" @bind-value:event="oninput">
+         Active: <input type="checkbox" checked = "@eachProduct.isActive" @onclick="eachProduct.toggleStatus">
+      </li>  
     }
-</select>
+
+</ul>
+<ul class="list-group">
+    @foreach(Class1 eachProduct in productsList)
+    {
+      <li >
+          <p>@eachProduct.Name @eachProduct.price  is @eachProduct.status </p>
+      </li>  
+    }
+</ul>
+
 
 
 @code {
@@ -30,22 +61,55 @@ Product Properties: <select @bind = "selectedProp">
     private String selectedProp = "";
 
     DemoProduct.LearnBlazorModel.Class1 mello = new()
-        {           
+        {
             Id = 21231,
             Name = "Joe Reagan",
-            isActive = true,
+            isActive = false,
             price = 3.141598,
             status = "Active",
-            ProductProperties = new List<DemoProduct.LearnBlazorModel.Demo_ProductProp>()
+            ProductProperties = new List<Demo_ProductProp>()
             {
-                new DemoProduct.LearnBlazorModel.Demo_ProductProp {Id = 1, Key = "Color", Value = "Black"},
-                new DemoProduct.LearnBlazorModel.Demo_ProductProp {Id = 2, Key = "Flavor", Value = "Rose Jasmine"},
-                new DemoProduct.LearnBlazorModel.Demo_ProductProp {Id = 3, Key = "Size", Value = "20oz"}
+                new Demo_ProductProp {Id = 2, Key = "Flavor", Value = "Rose Jasmine"},
+                new Demo_ProductProp {Id = 1, Key = "Color", Value = "Black"},
+                new Demo_ProductProp {Id = 3, Key = "Size", Value = "20oz"}
             }
-      
+
         };
 
 
+    List<Class1> productsList = new();
+
+    protected override void OnInitialized()
+    {
+        productsList.Add(new()
+            {
+                Id = 1,
+                Name = "Midnight Blaze",
+                isActive = false,
+                price = 2.71,
+                ProductProperties = new()
+                {
+                new Demo_ProductProp { Id = 1, Key = "Flavor", Value = "Rose"},
+                new Demo_ProductProp { Id = 2, Key = "Size", Value = "20oz"},
+                new Demo_ProductProp { Id = 3, Key = "Color", Value="Purple" }
+                }
+            });
+
+        productsList.Add(new()
+            {
+                Id = 2,
+                Name = "Blossom Lily",
+                isActive = true,
+                price = 3.14,
+                ProductProperties = new()
+            {
+                new Demo_ProductProp { Id = 1, Key = "Flavor", Value = "Lily",},
+                new Demo_ProductProp { Id = 2, Key = "Size", Value = "18oz" },
+                new Demo_ProductProp {Id = 3,Key = "Color",Value = "White"}
+            }
+            });
+
+    }
 
 }
 
