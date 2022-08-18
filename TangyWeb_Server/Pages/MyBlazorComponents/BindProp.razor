@@ -4,7 +4,7 @@
     <div class="col-6 border p-3">
 
         <h3 class="text-primary"> Product Playground</h3>
-        <p style="padding:0">Active: <input type="checkbox" checked = "@(mello.isActive?"checked":"unchecked")" @onclick="mello.toggleStatus"></p>
+                Active: <input type="checkbox" checked = "@mello.isActive" @onclick="mello.changeStatus">
         Price: <input type="text" @bind-value="@mello.price" @bind-value:event="oninput"> <br>
         <br>
 
@@ -40,7 +40,7 @@
       <li class="list-group-item">
          <input type="text" @bind-value="eachProduct.Name" @bind-value:event="oninput">
          <input type="text" @bind-value="eachProduct.price" @bind-value:event="oninput">
-         Active: <input type="checkbox" checked = "@eachProduct.isActive" @onclick="eachProduct.toggleStatus">
+         Active: <input type="checkbox" checked = "@eachProduct.isActive" @onclick="eachProduct.changeStatus">
       </li>  
     }
 
@@ -49,7 +49,7 @@
     @foreach(Class1 eachProduct in productsList)
     {
       <li >
-          <p>@eachProduct.Name @eachProduct.price  is @eachProduct.status </p>
+          <p>@eachProduct.Name @eachProduct.price  is @(eachProduct.isActive?"Active":"Inactive") </p>
       </li>  
     }
 </ul>
@@ -66,7 +66,6 @@
             Name = "Joe Reagan",
             isActive = false,
             price = 3.141598,
-            status = "Active",
             ProductProperties = new List<Demo_ProductProp>()
             {
                 new Demo_ProductProp {Id = 2, Key = "Flavor", Value = "Rose Jasmine"},

@@ -15,6 +15,18 @@ namespace DemoProduct.LearnBlazorModel
 
 
         public List<Demo_ProductProp> ProductProperties { get; set; }
+        
+        public void changeStatus()
+        {
+            if (isActive)
+            {
+                isActive = false;
+            }
+            else
+            {
+                isActive = true;
+            }
+        }
         public string getStatus()
         {
    
