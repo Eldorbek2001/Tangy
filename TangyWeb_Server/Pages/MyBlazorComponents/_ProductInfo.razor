@@ -1,0 +1,40 @@
+﻿        
+        <div class="col-6 border p-3" style="height: 400px; background-color:cornflowerblue" value = "@product.Name" @onclick="LastProduct()">
+           <p>Add to favourites: <input type="checkbox"  @onchange="Update"></p> <br>
+            <h3>Product- @product.Id</h3>
+           <p>Name-@product.Name</p>
+            <p>Show properties: <input type="checkbox" checked = "@product.isActive" @onclick="product.changeStatus"></p>
+                @if (product.isActive)
+                {
+                    @foreach (var eachProp in product.ProductProperties)
+                    {
+                        <p>@eachProp.Key - @eachProp.Value</p>
+                    }
+                }
+                <_DeleteAddButtons IsActive=@product.isActive>
+                 </_DeleteAddButtons>
+        </div>
+        
+
+@code {
+
+    [Parameter]
+    public  Class1 product {get; set;}
+
+    [Parameter]
+    public EventCallback<bool> OnchangefavNumber { get; set; }
+
+    [Parameter]
+    public EventCallback<string> updateLastProduct { get; set; }
+
+    private async Task Update(ChangeEventArgs e)
+    {
+        await OnchangefavNumber.InvokeAsync((bool)e.Value);
+
+    }
+    private async Task LastProduct(ChangeEventArgs e)
+    {
+        await updateLastProduct.InvokeAsync((string)e.Value);
+    }
+
+}
