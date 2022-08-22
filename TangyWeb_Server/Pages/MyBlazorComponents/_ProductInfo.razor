@@ -1,5 +1,5 @@
 ﻿        
-        <div class="col-6 border p-3" style="height: 400px; background-color:cornflowerblue" value = "@product.Name" @onclick="LastProduct()">
+        <div class="col-6 border p-3" style="height: 400px; background-color:cornflowerblue" value = "@product.Name" @onclick="(args)=>LastProduct(args, product.Name)">
            <p>Add to favourites: <input type="checkbox"  @onchange="Update"></p> <br>
             <h3>Product- @product.Id</h3>
            <p>Name-@product.Name</p>
@@ -21,20 +21,28 @@
     [Parameter]
     public  Class1 product {get; set;}
 
-    [Parameter]
-    public EventCallback<bool> OnchangefavNumber { get; set; }
+    
+
 
     [Parameter]
-    public EventCallback<string> updateLastProduct { get; set; }
+    public EventCallback<string> OnLastProdUpdate { get; set; }
+
+
+    private async Task LastProduct(MouseEventArgs e, string name)
+    {
+        await OnLastProdUpdate.InvokeAsync(name);
+    }
+
+
+
+    
+    [Parameter]
+    public EventCallback<bool> OnchangefavNumber { get; set; }
 
     private async Task Update(ChangeEventArgs e)
     {
         await OnchangefavNumber.InvokeAsync((bool)e.Value);
 
     }
-    private async Task LastProduct(ChangeEventArgs e)
-    {
-        await updateLastProduct.InvokeAsync((string)e.Value);
-    }
-
+ 
 }

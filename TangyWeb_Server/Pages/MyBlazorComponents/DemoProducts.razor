@@ -7,14 +7,14 @@
 <p>Last Selected Product: @lastProduct</p>
 <div class="row">
     @foreach(Class1 eachProduct in productsList)
-    {   <_ProductInfo product= "@eachProduct" OnchangefavNumber="changefavNumber" LastSelected="updateLastProduct">
+    {   <_ProductInfo product= "@eachProduct" OnchangefavNumber="changefavNumber" OnLastProdUpdate="lastProd">
         </_ProductInfo>
     }
  </div>
  </div>
 @code {
-    string lastProduct = "";
-    int favNumber = 0;
+    private string lastProduct = "";
+    private int favNumber = 0;
 
 
     List<Class1> productsList = new();
@@ -63,9 +63,9 @@
         }
     }
 
-    protected void updateLastProduct(string lastClickedName)
+    protected void lastProd(string lastClickedName)
     {
-        lastProduct = lastClickedName;
+        lastProduct = lastClickedName ;
     }
 
 }
