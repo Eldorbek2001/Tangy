@@ -1,0 +1,19 @@
+﻿@page "/learnBlazor/parentComponent"
+
+<h3>ParentChildRelation</h3>
+<_childFragment Title="Im your Child" onButtonClick = "showMessage"> 
+<dangerChild>Message: @messageText</dangerChild>
+<childContent>Message: @messageText</childContent>
+
+</_childFragment>
+<_childFragment Title="Im your Child"> </_childFragment>
+<_anotherChild></_anotherChild>
+
+@code {
+    public string messageText = "Hello";
+    private void showMessage()
+    {
+        messageText = "Someone clicked the BUTTON!";
+    }
+
+}

@@ -2,7 +2,8 @@
         <div class="col-6 border p-3" style="height: 400px; background-color:cornflowerblue" value = "@product.Name" @onclick="(args)=>LastProduct(args, product.Name)">
            <p>Add to favourites: <input type="checkbox"  @onchange="Update"></p> <br>
             <h3>Product- @product.Id</h3>
-           <p>Name-@product.Name</p>
+            <p>Name-@product.Name</p>
+            <p>RF from Parent- @fragOne  @fragTwo</p>
             <p>Show properties: <input type="checkbox" checked = "@product.isActive" @onclick="product.changeStatus"></p>
                 @if (product.isActive)
                 {
@@ -17,6 +18,13 @@
         
 
 @code {
+
+    [Parameter]
+    public RenderFragment fragOne { get; set; }
+
+
+    [Parameter]
+    public RenderFragment fragTwo { get; set; }
 
     [Parameter]
     public  Class1 product {get; set;}
