@@ -1,7 +1,10 @@
 ﻿<div>
 <h4 class="text-primary pt-3">Another Child Component</h4>
-<input id = "name" type="text" placeholder="Enter your name:" autocomplete="off">
+<input id = "name" type="text" autocomplete="off" placeholder="@Placeholder">
 </div>
 @code {
+    [Parameter]
+
+    public string Placeholder { get; set; }
 
 }
